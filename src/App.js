@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
+  if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+    console.log("Let's get this party started")
+    navigator.mediaDevices.getUserMedia({video: true, audio: false}).then((stream) => {
+      console.log(stream)
+      let video = document.getElementById("video")
+      video.srcObject = stream
+      video.onLoadedmetadata = (ev) => video.play()
+    }).catch((error) => console.log(error))
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+       <video src="" id="video" autoPlay={true}></video>
+    </div>  
   );
 }
 
